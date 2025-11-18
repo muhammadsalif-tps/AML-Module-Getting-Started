@@ -8,26 +8,31 @@
 
 ```mermaid
 flowchart LR
-  subgraph User Layer
+
+  %% USER LAYER
+  subgraph UserLayer[User Layer]
     UI[User / Client]
   end
 
-  subgraph Ingress
-    UI -->|Upload file (REST / WebUI / S3)| API[API Gateway / File Upload Service]
-    API -->|Put file into storage| ObjectStore[(S3 / Blob)]
-    API -->|Publish event| DaprPub[Dapr Pub/Sub]
+  %% INGRESS
+  subgraph Ingress[Ingress]
+    UI -->|"Upload file via REST, WebUI or S3"| API[API Gateway / File Upload Service]
+    API -->|"Save file to storage"| ObjectStore[(S3 or Blob Storage)]
+    API -->|"Publish event"| DaprPub[Dapr Pub/Sub]
   end
 
-  subgraph Orchestration
+  %% ORCHESTRATION
+  subgraph Orchestration[Orchestration]
     DaprPub --> TemporalStart[Temporal Worker: AMLWorkflow Starter]
     TemporalStart --> Temporal[Temporal Server]
   end
 
-  subgraph Processing
-    Temporal -->|call| Camel[Apache Camel Routes]
-    Camel -->|split file → tx events| TxQueue[(Dapr Pub/Sub / Kafka)]
+  %% PROCESSING
+  subgraph Processing[Processing]
+    Temporal -->|"Invoke"| Camel[Apache Camel Routes]
+    Camel -->|"Split file into transaction events"| TxQueue[(Dapr Pub/Sub or Kafka)]
 
-    subgraph Microservices
+    subgraph Microservices[Microservices]
       Sanctions[Sanctions Check Service]
       KYC[KYC Enrichment Service]
       Rules[Rules Engine Service]
@@ -45,33 +50,49 @@ flowchart LR
     ML --> Temporal
   end
 
-  subgraph Persistence & Observability
-    Temporal -->|persist| StateStore[(State Store: Redis/Cassandra)]
-    Temporal -->|write results| DB[(Postgres / MongoDB)]
-    ObjectStore -->|store raw| Archive[(Cold Storage / Logs)]
-    Tracing[Distributed Tracing (Jaeger)]
+  %% PERSISTENCE & OBSERVABILITY
+  subgraph Persistence[Persistence & Observability]
+    Temporal -->|"Persist state"| StateStore[(State Store: Redis or Cassandra)]
+    Temporal -->|"Write results"| DB[(Postgres / MongoDB)]
+    ObjectStore -->|"Archive raw file"| Archive[(Cold Storage / Logs)]
+
+    Tracing[Distributed Tracing - Jaeger]
     Metrics[Prometheus / Grafana]
     Logging[ELK / Loki]
+
     Camel --> Tracing
-    Microservices --> Tracing
+    Sanctions --> Tracing
+    KYC --> Tracing
+    ML --> Tracing
+    Rules --> Tracing
+    Normalizer --> Tracing
   end
 
-  subgraph Platform
+  %% PLATFORM
+  subgraph Platform[Kubernetes Platform]
     Kubernetes[Kubernetes Cluster]
     DaprSidecar[Dapr Sidecars]
+
     Temporal --> Kubernetes
     Camel --> Kubernetes
-    Microservices --> Kubernetes
+    Sanctions --> Kubernetes
+    ML --> Kubernetes
+    KYC --> Kubernetes
+    Rules --> Kubernetes
+    Normalizer --> Kubernetes
   end
 
-  API -->|callback / webhook| ClientNotify[Client Notification]
+  %% CALLBACK
+  API -->|"Send callback or webhook"| ClientNotify[Client Notification]
   Temporal --> ClientNotify
   ClientNotify --> UI
 
+  %% STYLES
   style Kubernetes stroke:#333,stroke-width:2px
   style Temporal fill:#fef3c7
   style Camel fill:#eef2ff
   style DaprPub fill:#ecfdf5
+
 ```
 
 ---
