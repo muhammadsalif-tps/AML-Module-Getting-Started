@@ -1,0 +1,27 @@
+version: '3.9'
+
+services:
+  redis:
+    image: redis:latest
+    container_name: redis
+    ports:
+      - "6379:6379"
+
+  zipkin:
+    image: openzipkin/zipkin
+    container_name: zipkin
+    ports:
+      - "9411:9411"
+
+  dapr-placement:
+    image: daprio/dapr
+    container_name: dapr-placement
+    command: ["./placement", "-port", "50005"]
+    ports:
+      - "50005:50005"
+
+  dapr-dashboard:
+    image: daprio/dashboard
+    container_name: dapr-dashboard
+    ports:
+      - "8080:8080"

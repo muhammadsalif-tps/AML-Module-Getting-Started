@@ -1,0 +1,31 @@
+# Node.js dependencies and build artifacts
+node_modules/
+dist/
+coverage/
+*.log
+*.tsbuildinfo
+npm-debug.log*
+yarn-error.log*
+
+# Environment files
+.env
+.env.*
+
+# IDE and OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Framework build outputs
+/build/
+.next/
+out/
+static/
+
+# Project-specific ignores
+api-gateway/uploads/
+dapr/components/dev-secrets.json
+dapr/components/secrets.yaml
+*.db
+*.sqlite

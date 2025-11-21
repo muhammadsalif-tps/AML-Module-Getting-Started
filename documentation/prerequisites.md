@@ -1,4 +1,4 @@
-# PREREQUISITES.md
+# Prerequisites.md
 
 # AML Processing System — Local Development Prerequisites
 
@@ -8,9 +8,9 @@ This document lists all required tools and setup steps to run the **AML System**
 
 ## 1. Operating System Requirements
 
-* **Windows 10/11** (WSL2 recommended)
-* **macOS (Intel / M1 / M2)**
-* **Linux (Ubuntu recommended)**
+- **Windows 10/11** (WSL2 recommended)
+- **macOS (Intel / M1 / M2)**
+- **Linux (Ubuntu recommended)**
 
 ---
 
@@ -18,9 +18,9 @@ This document lists all required tools and setup steps to run the **AML System**
 
 ### 2.1 Node.js
 
-* **Node.js 20+**
-* **npm** (comes with Node.js)
-* Optional: **nvm** for version management
+- **Node.js 20+**
+- **npm** (comes with Node.js)
+- Optional: **nvm** for version management
 
 Verify:
 
@@ -31,7 +31,7 @@ npm -v
 
 ### 2.2 Java (for Apache Camel)
 
-* **Java 17 LTS**
+- **Java 17 LTS**
 
 Verify:
 
@@ -41,7 +41,7 @@ java -version
 
 ### 2.3 Python (optional)
 
-* Python 3.10+ for tooling and utilities
+- Python 3.10+ for tooling and utilities
 
 Verify:
 
@@ -57,16 +57,16 @@ python3 --version
 
 Used for storing:
 
-* Transactions
-* Sanctions Data
-* KYC Data
-* AML Rules
-* Results and Audit Logs
+- Transactions
+- Sanctions Data
+- KYC Data
+- AML Rules
+- Results and Audit Logs
 
 **Options:**
 
-* **Oracle XE (Local)**: [https://www.oracle.com/database/technologies/xe-downloads.html](https://www.oracle.com/database/technologies/xe-downloads.html)
-* **Oracle in Docker** (recommended for dev):
+- **Oracle XE (Local)**: [https://www.oracle.com/database/technologies/xe-downloads.html](https://www.oracle.com/database/technologies/xe-downloads.html)
+- **Oracle in Docker** (recommended for dev):
 
 ```bash
 docker pull container-registry.oracle.com/database/express:latest
@@ -86,19 +86,19 @@ Provides pub/sub, state store, service invocation, and secrets.
 
 ### Install Dapr CLI
 
-* Windows:
+- Windows:
 
 ```bash
 winget install Dapr.Dapr -s winget
 ```
 
-* macOS:
+- macOS:
 
 ```bash
 brew install dapr/tap/dapr
 ```
 
-* Linux:
+- Linux:
 
 ```bash
 wget -q https://raw.githubusercontent.com/dapr/cli/master/install/install.sh -O - | /bin/bash
@@ -159,19 +159,19 @@ camel --version
 
 ## 7. Oracle Instant Client (Required for Node.js)
 
-* Download: [https://www.oracle.com/database/technologies/instant-client/downloads.html](https://www.oracle.com/database/technologies/instant-client/downloads.html)
-* Install `instantclient-basic` and `instantclient-sdk`
+- Download: [https://www.oracle.com/database/technologies/instant-client/downloads.html](https://www.oracle.com/database/technologies/instant-client/downloads.html)
+- Install `instantclient-basic` and `instantclient-sdk`
 
 **Set environment variables:**
 
-* Windows: Add folder to `PATH`
-* macOS:
+- Windows: Add folder to `PATH`
+- macOS:
 
 ```bash
 export DYLD_LIBRARY_PATH=/opt/oracle/instantclient_21_8
 ```
 
-* Linux:
+- Linux:
 
 ```bash
 export LD_LIBRARY_PATH=/opt/oracle/instantclient_21_8
@@ -187,10 +187,10 @@ node -e "require('oracledb'); console.log('Oracle Driver OK')"
 
 ## 8. Optional Tools
 
-* **Docker** → for Oracle, Redis, Camel, microservices
-* **VSCode** → recommended extensions: Dapr, Temporal, Docker, Oracle SQL, REST Client
-* **Postman / Insomnia** → API testing
-* **Git** → version control
+- **Docker** → for Oracle, Redis, Camel, microservices
+- **VSCode** → recommended extensions: Dapr, Temporal, Docker, Oracle SQL, REST Client
+- **Postman / Insomnia** → API testing
+- **Git** → version control
 
 ---
 

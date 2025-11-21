@@ -1,0 +1,12 @@
+apiVersion: dapr.io/v1alpha1
+kind: Configuration
+metadata:
+  name: amlconfig
+spec:
+  tracing:
+    samplingRate: "1.0"
+  features:
+    - name: AppHealthCheck
+      enabled: true
+  mtls:
+    enabled: false

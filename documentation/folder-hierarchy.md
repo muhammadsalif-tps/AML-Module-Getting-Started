@@ -5,6 +5,10 @@ aml-system/
 │   │   ├── upload.controller.js
 │   │   ├── upload.routes.js
 │   │   ├── oracle.js
+│   │   ├── server.js
+│   │   ├── storage.js
+│   │   ├── pubsub.js
+│   ├── uploads/   ← auto-created folder for storing uploaded files
 │   ├── package.json
 │   ├── Dockerfile
 │
