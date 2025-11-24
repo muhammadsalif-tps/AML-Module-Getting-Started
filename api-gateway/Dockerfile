@@ -1,12 +1,13 @@
-FROM node:18
+FROM node:20
 
 WORKDIR /app
 
 COPY package*.json ./
-RUN npm install
+ENV NODE_ENV=production
+RUN npm install --omit=dev
 
 COPY src ./src
-COPY uploads ./uploads
+RUN mkdir -p uploads
 
 EXPOSE 3000
 

@@ -11,6 +11,7 @@ spec:
     - name: redisPassword
       value: ""
 scopes:
+  - api-gateway
   - normalizer
   - sanctions
   - kyc
